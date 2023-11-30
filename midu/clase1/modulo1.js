@@ -2,13 +2,13 @@
 const os = require('node:os');
 console.log('Informacion del sistema operativo');
 console.log('--------------------------------');
-// informacion de nuestro sistema operativo 
+// informacion de nuestro sistema operativo ;
 console.log('Nombre del sistema operativo' + os.platform());
 
-// version del sistema operativo 
+// version del sistema operativo ;
 console.log('Version del sistema operativo' + os.version());
 
-// arquitectura de nuestro sistema 
+// arquitectura de nuestro sistema ;
 console.log('Arquitectura' +  os.arch());
 
 // CPU's disponibles 
