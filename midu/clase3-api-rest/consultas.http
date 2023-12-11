@@ -1,0 +1,29 @@
+### Aqui los datos de la consultas 
+## Endpoint para ver los datos de las peliculas
+GET http://localhost:7000/movies
+
+###
+## Endpint para filtrar solo una pelicula
+GET http://localhost:7000/movies/1
+
+### 
+GET http://localhost:7000/movies/c8a7d63f-3b04-44d3-9d95-8782fd7dcfaf
+
+### filtrar peliculas por generos
+GET http://localhost:7000/movies?genre=action
+
+###
+## filtrar peliculas por generos y id
+
+GET http://localhost:7000/movies?genre=action&c=1
+
+### Post
+POST http://localhost:7000/moviessend
+Content-Type: "application/json"
+{
+    "Title": "Cositas locas",
+    "Year": 2004,
+    "director": "Fabian La Cruz",
+    "duration": 124,
+    "genre": ["Drama"]
+}

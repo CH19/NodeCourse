@@ -2,13 +2,15 @@
   "name": "clase3-api-rest",
   "version": "1.0.0",
   "description": "clase 3 del curso de nodejs donde crearemos una api rest por primera vez, tambien estamos practicando el consumo de apis con metodo post",
-  "main": "index.js",
+  "main": "01-server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node --watch 01-server.js "
   },
   "author": "CH19 <chcc190505@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "axios": "1.6.2"
+    "axios": "1.6.2",
+    "express": "4.18.2"
   }
 }
