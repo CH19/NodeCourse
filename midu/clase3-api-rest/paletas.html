@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+
+            /* background-color: #008100; */
+            /* background-color: #558300; */
+            background-color: #78BC2B;
+            color: #FFF;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h1{
+            text-transform: uppercase;
+        }
+</style>
+</head>
+<body>
+    <h1>spmun vi edicion</h1>
+    <button>Crear Producto</button>
+    <script>
+        const readProducts = async () => {
+            const response = await fetch('https://api.escuelajs.co/api/v1/products');
+            const data = await response.json();
+            console.log(data);
+            return
+        }
+        const doPost = async () => {
+
+            const data = new Blob([{
+                "title": "New Product",
+        "price": 10,
+        "description": "A description",
+        "categoryId": 1,
+        "images": ["https://placeimg.com/640/480/any"]
+    
+    
+            }], {type: "application/json"})
+            const response =  await fetch('https://api.escuelajs.co/api/v1/products/', {
+                method: 'POST',
+                body: data
+            });
+            if(response.status == 200){
+                console.log('Producto creado');
+            }else{
+                console.error('Producto rechazado');
+            }
+        }
+        doPost();
+        // readProducts();
+</script>
+</body>
+</html>

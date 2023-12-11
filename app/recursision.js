@@ -43,7 +43,7 @@
     }else{
       const arr = [startNum, ...rangeOfNumbers(startNum + 1, endNum)]
       return arr
-      
+        'hola'.toLowerCase
     }
   };
   console.log(rangeOfNumbers(1, 5));

@@ -1,0 +1,25 @@
+### Obtener la data de los productos del 02 routing js 
+GET  http://locategoryIdl: 9,
+host:7000/products
+# GET https://api.escuelajs.co/api/v1/products
+### Haciendo un post 
+POST http://localhost:7000/setproduct
+Content-Type: "application/json"
+{
+    "name": "christian",
+    "password": "34232323",
+    "age": "18"
+}
+
+####
+# Probando el metodo post en la api de platzi
+POST https://api.escuelajs.co/api/v1/products/
+Content-Type: "application/json"
+[{
+    "title": "Chancletas",
+    "price": 19,
+    "description": "Descripccion cool",
+    "categoryId": 9,
+    "images": "http://imagescool.com/chancletas"
+
+}]

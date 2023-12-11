@@ -1,0 +1,9 @@
+POST  https://api.escuelajs.co/api/v1/products/ 
+content-type: application/json
+{
+  "title": "New Product",
+  "price": 10,
+  "description": "A description",
+  "categoryId": 1,
+  "images": ["https://placeimg.com/640/480/any"]
+}

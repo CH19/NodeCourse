@@ -1,0 +1,26 @@
+{
+  "name": "clase2-express",
+  "version": "1.0.0",
+  "description": "primer servidor web con nodejs y vanila js",
+  "main": "01-http.cjs",
+  "scripts": {
+    "dev": "npx nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "04E": "node --watch ./04-exrpess.js"
+  },
+  "keywords": [
+    "js",
+    "nodejs",
+    "express",
+    "dev"
+  ],
+  "author": "Christian La Cruz <chcc190505@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.18.2",
+    "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0"
+  }
+}
