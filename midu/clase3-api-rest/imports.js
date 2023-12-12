@@ -1,26 +1,26 @@
-// usando un api con axios 
-const axios = require('axios');
-const url = 'https://jsonplaceholder.typicode.com/todos';
+// usando un api con axios
+const axios = require("axios");
+const url = "https://jsonplaceholder.typicode.com/todos";
 const vainita = async () => {
-    const data = await axios(url);
-    return data
-}
+  const data = await axios(url);
+  return data;
+};
 const doPost = async () => {
-    let cosa = null;
-    try{
-        const reqPost = await axios.post(url, {
-            userId: 340,
-            id: 43,
-            title: 'La voluntad de un hombre por hacer un metodo post',
-            completed: false  
-        });
-        console.log(reqPost.status);
-        cosa = reqPost
-    }catch(e){
-        console.error(e)
-    }
-    // console.log(cosa)
-}
+  let cosa = null;
+  try {
+    const reqPost = await axios.post(url, {
+      userId: 340,
+      id: 43,
+      title: "La voluntad de un hombre por hacer un metodo post",
+      completed: false,
+    });
+    console.log(reqPost.status);
+    cosa = reqPost;
+  } catch (e) {
+    console.error(e);
+  }
+  // console.log(cosa)
+};
 // axios.get('https://api.escuelajs.co/api/v1/products').then(res => console.log(res))
 // axios.post('https://api.escuelajs.co/api/v1/products', {
 //     "title": "Chancleata",

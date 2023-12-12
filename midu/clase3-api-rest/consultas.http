@@ -18,11 +18,12 @@ GET http://localhost:7000/movies?genre=action
 GET http://localhost:7000/movies?genre=action&c=1
 
 ### Post
-POST http://localhost:7000/moviessend
-Content-Type: "application/json"
+POST http://localhost:7000/movies HTTP/1.1
+content-type: "application/json"
+
 {
-    "Title": "Cositas locas",
-    "Year": 2004,
+    "title": "Cositas locas",
+    "year": 2004,
     "director": "Fabian La Cruz",
     "duration": 124,
     "genre": ["Drama"]
