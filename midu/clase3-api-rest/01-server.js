@@ -79,8 +79,8 @@ app.post("/name", function (req, res) {
   });
 });
 app.use((req, res, next) => {
-    res.sendStatus(204);
   res.status(404).json({ message: "404 not fund" });
+  next();
 });
 app.listen(port, () => {
   console.log(`this server its here http://localhost:${port}`);
