@@ -3,12 +3,19 @@ const express = require("express");
 // usamos la biblioteca crypto para crear id unicos
 const { randomUUID } = require("node:crypto");
 const movies = require("./movies.json");
+// anadimos morgan en el proyecto para ver la informacion de las solicitudes http que hacemos 
+const morgan = require('morgan');
+// anadimos zod en el proyecto para validar el tipo de objeto que envia un usuario 
+const z = require('zod');
 const app = express();
 const port = process.argv[2] ?? 7000;
 let genreRoute = [];
 // desabilitdamos x-powered-by para mayor seguridad en nuestra api
 app.disable("x-powered-by");
+// middlewere utilizado para convertir las solicitudes post del body a formato json y asi confirmar la seguridad 
 app.use(express.json());
+// se usa morgan para obtener informacion de las solicitudes http 
+app.use(morgan('dev'));
 
 // creamos un middluwere para que si entran datos json se formateen con un metodo que viene en express
 
@@ -43,25 +50,17 @@ app.get("/movies/:id", (req, res) => {
   res.status(404).json({ message: "404 hay un error" });
 });
 // creando nuestro primer metodo post
+
 app.post("/movies", (req, res) => {
-  let movie = "";
-  req.on("data", (chunk) => {
-    movie += chunk;
-  });
-  req.on("end", () => {
-    const { title, year, director, duration, genre } = JSON.parse(movie);
-    const newMovie = {
-      id: randomUUID(),
-      title,
-      year,
-      director,
-      duration,
-      genre,
-    };
-    movies.push(newMovie);
-    res.status(201);
-    res.json(newMovie);
-  });
+
+  const datanewMovie = req.body; 
+  if(datanewMovie == undefined || datanewMovie == false) return res.status(404).json({'message': 'Failed data dont exist'});
+  const newMovie = {
+    id: randomUUID(),
+    ...datanewMovie
+  }
+  movies.push(newMovie);
+  return res.status(201).json(movies)
 });
 app.post("/name", function (req, res) {
   let data = "";
