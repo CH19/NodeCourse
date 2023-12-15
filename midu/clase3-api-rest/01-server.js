@@ -5,8 +5,9 @@ const { randomUUID } = require("node:crypto");
 const movies = require("./movies.json");
 // anadimos morgan en el proyecto para ver la informacion de las solicitudes http que hacemos 
 const morgan = require('morgan');
-// anadimos zod en el proyecto para validar el tipo de objeto que envia un usuario 
-const z = require('zod');
+// importamos el esquema que tendran las peticiones post con las peliculas
+const {validateMovie, validateProperity} = require('./moviesData');
+const { error } = require("node:console");
 const app = express();
 const port = process.argv[2] ?? 7000;
 let genreRoute = [];
@@ -24,7 +25,11 @@ app.get("/", (req, res) => {
 });
 // obtener toda la data de las movies
 app.get("/movies", (req, res) => {
-  const { genre, c } = req.query;
+  // colocando el header para que nuestra api pueda ser compartida 
+  const { genre, c, key } = req.query;
+  if(key == '1234'){
+    res.header('Access-Control-Allow-Origin', '*')
+  }
 
   // Generando nuestro primer endopint
   if (genre != undefined) {
@@ -50,33 +55,55 @@ app.get("/movies/:id", (req, res) => {
   res.status(404).json({ message: "404 hay un error" });
 });
 // creando nuestro primer metodo post
-
+// crear nuestra primer pelicula 
 app.post("/movies", (req, res) => {
+  // validar el tipo del json enviado a nuestra pelicula 
+  const datanewMovie = validateMovie(req.body); 
 
-  const datanewMovie = req.body; 
-  if(datanewMovie == undefined || datanewMovie == false) return res.status(404).json({'message': 'Failed data dont exist'});
+  if(datanewMovie.error || !datanewMovie) return res.status(404).json({'message': datanewMovie.error});
   const newMovie = {
     id: randomUUID(),
-    ...datanewMovie
+    ...datanewMovie.data,
   }
   movies.push(newMovie);
   return res.status(201).json(movies)
 });
-app.post("/name", function (req, res) {
-  let data = "";
-  req.on("data", (chunk) => {
-    data += chunk;
-  });
-  req.on("end", () => {
-    const finalData = JSON.parse(data);
-    res.setHeader("Content-Type", "application/json");
-    res.status(201);
-    res.json({
-      message: "Final data",
-      finalData: finalData,
-    });
-  });
-});
+app.put('/movies/:id', (req, res) => {
+  const {id} = req.params;
+  const indexMovie = movies.findIndex(movie => movie.id == id);
+  const changeMovie = validateMovie(req.body);
+  const changeMovieProps = validateProperity(req.body);
+  if(changeMovieProps.error) return res.status(404).json({'message': changeMovie.error.message});
+  if(indexMovie == -1){
+    if(changeMovie.error) return res.status(404).json({error: changeMovie.error})
+    const newMovie = {
+      id: randomUUID(),
+      ...changeMovie.data
+    };
+    movies.push(newMovie);
+    return res.status(201).json(movies);
+  }
+  const movieChanges = {
+    ...movies[indexMovie],
+    ...changeMovieProps.data
+  }
+  movies[indexMovie] = movieChanges;
+  return res.status(201).json(movies[indexMovie]);
+})
+// creamos un metodo para actualizar nuestras peliculas 
+app.patch('/movies/:id', (req, res) => {
+  const {id} = req.params 
+  const changeMovie = validateProperity(req.body);
+  const movieIndex = movies.findIndex(movie => movie.id == id);
+  if(movieIndex == -1) return res.status(404).json({'message': 'movie dont exist'});
+  if(changeMovie.error) return res.status(404).json({error: changeMovie.error} )
+  const updateMovie = {
+    ...movies[movieIndex],
+    ...changeMovie.data
+  };
+  movies[movieIndex] = updateMovie
+  return res.status(200).json(movies[movieIndex]);
+})
 app.use((req, res, next) => {
   res.status(404).json({ message: "404 not fund" });
   next();

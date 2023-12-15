@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">
+        window.addEventListener('load', ()=> {
+            const app = document.querySelector('#app');
+            fetch('http://localhost:7000/movies?key=1234').then(res => res.json()).then(movies => {
+            const html = movies.map(movie => {
+                return `<h1>${movie.title}</h1><img src="${movie.poster}><p>${movie.description}</p>"`
+            })
+            app.innerHTML = html;
+        })
+        })
+</script>
+</head>
+<body>
+    <h1>Probando Nuestra api</h1>
+    <div id="app"></div>
+</body>
+</html>
